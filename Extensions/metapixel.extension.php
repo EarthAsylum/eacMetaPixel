@@ -448,8 +448,8 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 				$ids[] = $item->get_id();
 			}
 
-			$source = explode('?',$_SERVER('REQUEST_URI'));
-			$source = sanitize_url( (is_ssl() ? "https://" : "http://") . $_SERVER('HTTP_HOST') . $source[0] );
+			$source = explode('?',$_SERVER['REQUEST_URI']);
+			$source = sanitize_url( (is_ssl() ? "https://" : "http://") . $_SERVER['HTTP_HOST'] . $source[0] );
 
 			$apiData = (object) array(
 				"data" => array(
