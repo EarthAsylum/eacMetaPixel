@@ -14,7 +14,7 @@ namespace EarthAsylumConsulting;
  * @wordpress-plugin
  * Plugin Name:			{eac}MetaPixel
  * Description:			{eac}MetaPixel installs the Facebook/Meta Pixel to enable tracking of PageView, ViewContent, AddToCart, InitiateCheckout and Purchase events.
- * Version:				1.0.3
+ * Version:				1.0.4
  * Requires at least:	5.5.0
  * Tested up to:		6.4
  * Requires PHP:		7.2

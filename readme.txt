@@ -1,8 +1,8 @@
 === {eac}Doojigger MetaPixel Extension for WordPress ===
 Plugin URI:         https://eacdoojigger.earthasylum.com/eacmetapixel/
 Author:             [EarthAsylum Consulting](https://www.earthasylum.com)
-Stable tag:         1.0.3
-Last Updated:       8-Jun-2023
+Stable tag:         1.0.4
+Last Updated:       9-Feb-2023
 Requires at least:  5.5.0
 Tested up to:       6.4
 Requires PHP:       7.2
@@ -12,7 +12,7 @@ License:            GPLv3 or later
 License URI:        https://www.gnu.org/licenses/gpl.html
 Tags:               facebook, facebook pixel, meta pixel, facebook ads, {eac}Doojigger, facebook conversion, facebook tracking, conversion, tracking
 WordPress URI:		https://wordpress.org/plugins/eacmetapixel
-GitHub URI:			https://github.com/KBurkholder/eacMetaPixel
+GitHub URI:			https://github.com/EarthAsylum/eacMetaPixel
 
 {eac}MetaPixel installs the Facebook/Meta Pixel to enable tracking of PageView, Search, ViewContent, AddToCart, InitiateCheckout and Purchase events.
 
@@ -145,6 +145,10 @@ You should receive a copy of the GNU General Public License along with this prog
 
 
 == Changelog ==
+
+= Version 1.0.4 – Feb 9, 2023 =
+
++	Fixed critical coding error in purchase tracking.
 
 = Version 1.0.3 – June 8, 2023 =
 

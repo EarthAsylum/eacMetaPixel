@@ -435,7 +435,7 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
     	{
 			if (!$order) return new WP_Error(400,"order not found");
 
-			$apiUrl = escl_url("https://graph.facebook.com/v14.0/{$this->pixelId}/events?access_token={$this->conversionToken}");
+			$apiUrl = esc_url("https://graph.facebook.com/v14.0/{$this->pixelId}/events?access_token={$this->conversionToken}");
 
 			$items = $ids = array();
 			foreach ($order->get_items() as $key => $item) {
