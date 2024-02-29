@@ -11,8 +11,8 @@ Contributors:       kevinburkholder
 License:            GPLv3 or later
 License URI:        https://www.gnu.org/licenses/gpl.html
 Tags:               facebook, facebook pixel, meta pixel, facebook ads, {eac}Doojigger, facebook conversion, facebook tracking, conversion, tracking
-WordPress URI:		https://wordpress.org/plugins/eacmetapixel
-GitHub URI:			https://github.com/EarthAsylum/eacMetaPixel
+WordPress URI:      https://wordpress.org/plugins/eacmetapixel
+GitHub URI:         https://github.com/EarthAsylum/eacMetaPixel
 
 {eac}MetaPixel installs the Facebook/Meta Pixel to enable tracking of PageView, Search, ViewContent, AddToCart, InitiateCheckout and Purchase events.
 
@@ -22,7 +22,7 @@ _{eac}MetaPixel_ is an [{eac}Doojigger](https://eacDoojigger.earthasylum.com/) e
 
 = What is the Meta Pixel? =
 
->	The Meta Pixel is a piece of code on your website that can help you better understand the effectiveness of your advertising and the actions people take on your site, like visiting a page or adding an item to their cart. You’ll also be able to see when customers took an action after seeing your ad on Facebook and Instagram, which can help you with retargeting. And when you use the Conversions API alongside the Pixel, it creates a more reliable connection that helps the delivery system decrease your costs.
+>   The Meta Pixel is a piece of code on your website that can help you better understand the effectiveness of your advertising and the actions people take on your site, like visiting a page or adding an item to their cart. You’ll also be able to see when customers took an action after seeing your ad on Facebook and Instagram, which can help you with retargeting. And when you use the Conversions API alongside the Pixel, it creates a more reliable connection that helps the delivery system decrease your costs.
 
 *See [Meta Pixel](https://www.facebook.com/business/tools/meta-pixel)*
 
@@ -30,34 +30,34 @@ To retrieve your pixel id, Go to Meta [Events Manager](https://business.facebook
 
 = Pixel Events =
 
-+	Page Views
-	+	PageView events may occur on all pages or only pages that don't trigger another event.
-+	Site Search
-	+	Search result pages.
-+	Content View (archives)
-	+	Archive (category and tag) pages.
-+	Content View (products)
-	+	Product pages.
-+	Content View (commerce)
-	+	Product category, tag, and shop pages.
-+	Content View (cart)
-	+	The shopping cart page.
-+	Add To Cart
-	+	Buttons and links that add an item to the cart.
-+	Initiate Checkout
-	+	The checkout page.
-+	Purchase Completed
-	+	Purchase confirmation page. (a 'Purchase' event is registered as a 'Subscription' if the order includes a subscription, or as a 'StartTrial' if any subscription has a trial start date.)
++   Page Views
+    +   PageView events may occur on all pages or only pages that don't trigger another event.
++   Site Search
+    +   Search result pages.
++   Content View (archives)
+    +   Archive (category and tag) pages.
++   Content View (products)
+    +   Product pages.
++   Content View (commerce)
+    +   Product category, tag, and shop pages.
++   Content View (cart)
+    +   The shopping cart page.
++   Add To Cart
+    +   Buttons and links that add an item to the cart.
++   Initiate Checkout
+    +   The checkout page.
++   Purchase Completed
+    +   Purchase confirmation page. (a 'Purchase' event is registered as a 'Subscription' if the order includes a subscription, or as a 'StartTrial' if any subscription has a trial start date.)
 
 = Server Based Conversion API =
 
 Support for the Meta [Conversion API](https://developers.facebook.com/docs/marketing-api/conversions-api) to track purchase events directly from your server is included. When using the Conversion API, additional information will be passed through the api, including:
 
-+	Customer name (hashed, non-decipherable)
-+	Customer email address (hashed, non-decipherable)
-+	Customer phone number (hashed, non-decipherable)
-+	Customer billing address (hashed, non-decipherable)
-+	Order/cart details (item, quantity, price)
++   Customer name (hashed, non-decipherable)
++   Customer email address (hashed, non-decipherable)
++   Customer phone number (hashed, non-decipherable)
++   Customer billing address (hashed, non-decipherable)
++   Order/cart details (item, quantity, price)
 
 Since Facebook gives priority to the browser pixel, the browser pixel is suppressed in favor of the conversion api so the conversion api may provide more information.
 
@@ -65,18 +65,18 @@ To enable the server conversion api, Go to Meta [Events Manager](https://busines
 
 Click the "Generate access token" link under the "Get Started" button. Copy the access token and paste it into the "Server Access Token" field of this extension's settings.
 
->	Note: Server events require a Meta Business Manager.
+>   Note: Server events require a Meta Business Manager.
 
 = Advantage+ Catalog Ads =
 
 The Content View (products), Add To Cart, Initiate Checkout, and Purchase Completed events meet the requirements for [Advantage+ catalog ads](https://www.facebook.com/business/help/606577526529702?id=1205376682832142).
 
-+	content_type : 'product'.
-+	content_ids : array of product ids (WooCommerce ID) e.g. [1174,1175].
++   content_type : 'product'.
++   content_ids : array of product ids (WooCommerce ID) e.g. [1174,1175].
 
 The server Conversion API for purchases also includes:
 
-+	contents : array of product details containing id (product sku), quantity, and item_price.
++   contents : array of product details containing id (product sku), quantity, and item_price.
 
 = Domain Verification =
 
@@ -86,7 +86,7 @@ Go to Meta [Business Settings](https://business.facebook.com/settings/) → Bran
 
 In this example:
 ```
-	<meta name="facebook-domain-verification" content="xyzzy1ndu84mmhaifl5gawo9ntafn8" />
+    <meta name="facebook-domain-verification" content="xyzzy1ndu84mmhaifl5gawo9ntafn8" />
 ```
 We want only *xyzzy1ndu84mmhaifl5gawo9ntafn8* copied and pasted into the "Domain Verification" field of this extension's settings.
 
@@ -128,7 +128,7 @@ Once installed and activated options for this extension will show in the 'Tracki
 
 = Additional Information =
 
-+	{eac}MetaPixel is an extension plugin to and requires installation and registration of [{eac}Doojigger](https://eacDoojigger.earthasylum.com/).
++   {eac}MetaPixel is an extension plugin to and requires installation and registration of [{eac}Doojigger](https://eacDoojigger.earthasylum.com/).
 
 See: [Specifications for Facebook Pixel Standard Events](https://business.facebook.com/business/help/402791146561655)
 
@@ -148,22 +148,22 @@ You should receive a copy of the GNU General Public License along with this prog
 
 = Version 1.0.4 – Feb 9, 2023 =
 
-+	Fixed critical coding error in purchase tracking.
++   Fixed critical coding error in purchase tracking.
 
 = Version 1.0.3 – June 8, 2023 =
 
-+	Removed unnecessary plugin_update_notice trait.
++   Removed unnecessary plugin_update_notice trait.
 
 = Version 1.0.2 – November 15, 2022 =
 
-+	Updated to / Requires {eac}Doojigger 2.0.
-+	Uses 'options_settings_page' action to register options.
-+	Added contextual help using 'options_settings_help' action.
-+	Moved plugin_action_links_ hook to eacDoojigger_load_extensions filter.
++   Updated to / Requires {eac}Doojigger 2.0.
++   Uses 'options_settings_page' action to register options.
++   Added contextual help using 'options_settings_help' action.
++   Moved plugin_action_links_ hook to eacDoojigger_load_extensions filter.
 
 = Version 1.0.1 – September 25, 2022 =
 
-+	Fixed potential PHP notice on load (plugin_action_links_).
++   Fixed potential PHP notice on load (plugin_action_links_).
 +   Added upgrade notice trait for plugins page.
 
 = Version 1.0.0 – September 6, 2022 =
