@@ -27,7 +27,7 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 		/**
 		 * @var string extension version
 		 */
-		const VERSION	= '23.1109.1';
+		const VERSION	= '24.0423.1';
 
 		/**
 		 * @var string facebook pixel
@@ -228,7 +228,7 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 
 			if (!empty($this->pixelId))
 			{
-				add_action("wp_head",	array($this, 'addPixelScript'),50);
+				add_action("wp_enqueue_scripts",	array($this, 'addPixelScript'));
 			}
 		}
 
@@ -373,7 +373,10 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 
 			if (empty($insert)) return;
 
-			$javascript = "
+			// jquery required
+			wp_enqueue_script('jquery');
+
+			$javascript = "/* Facebook Meta Pixel Code */
 					!function(f,b,e,v,n,t,s)
 					{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 					n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -392,9 +395,10 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 				";
 				echo "<script>console.info(\"".esc_attr($this->className).": ".esc_js($insert)."\");</script>\n";
 			*/
-			echo "\n<!-- Meta Pixel Code -->\n";
-			echo "<script id='".esc_attr($this->className)."' type='text/javascript'>".wp_kses($javascript,[])."</script>";
-			echo "\n<!-- End Meta Pixel Code -->\n";
+			$scriptId = sanitize_key( 'meta-pixel-'.$this->getVersion() );
+			wp_register_script( $scriptId, false, ['jquery'] );
+			wp_enqueue_script( $scriptId );
+			wp_add_inline_script( $scriptId, $this->minifyString($javascript) );
 		}
 
 
