@@ -9,9 +9,9 @@ Plugin URI:         https://eacdoojigger.earthasylum.com/eacmetapixel/
 Author:             [EarthAsylum Consulting](https://www.earthasylum.com)  
 Stable tag:         1.0.6  
 Last Updated:       23-Apr-2024  
-Requires at least:  5.5.0  
-Tested up to:       6.5  
-Requires PHP:       7.2  
+Requires at least:  5.8  
+Tested up to:       6.6  
+Requires PHP:       7.4  
 Requires EAC:       2.0  
 Contributors:       [kevinburkholder](https://profiles.wordpress.org/kevinburkholder)  
 License:            GPLv3 or later  
