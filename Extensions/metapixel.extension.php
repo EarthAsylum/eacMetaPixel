@@ -6,12 +6,11 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 	/**
  	* Extension: metapixel_extension - facebook conversion - {eac}Doojigger for WordPress
  	*
- 	* @category	WordPress Plugin
+ 	* @category		WordPress Plugin
  	* @package		{eac}Doojigger\Extensions
  	* @author		Kevin Burkholder <KBurkholder@EarthAsylum.com>
- 	* @copyright	Copyright (c) 2023 EarthAsylum Consulting <www.EarthAsylum.com>
- 	* @version		1.x
- 	* @link		https://eacDoojigger.earthasylum.com/
+ 	* @copyright	Copyright (c) 2025 EarthAsylum Consulting <www.EarthAsylum.com>
+ 	* @link			https://eacDoojigger.earthasylum.com/
  	*/
 
 	/*
@@ -27,7 +26,7 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 		/**
 		 * @var string extension version
 		 */
-		const VERSION	= '24.0423.1';
+		const VERSION	= '25.0419.1';
 
 		/**
 		 * @var string facebook pixel
@@ -60,15 +59,11 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 		{
 			parent::__construct($plugin, self::DEFAULT_DISABLED);
 
-
-			if ($this->is_admin())
-			{
-				$this->registerExtension( ['Facebook_(Meta)_Pixel','Tracking'] );
-				// Register plugin options when needed
-				$this->add_action( "options_settings_page", array($this, 'admin_options_settings') );
-				// Add contextual help
-				$this->add_action( 'options_settings_help', array($this, 'admin_options_help') );
-			}
+			$this->registerExtension( ['Facebook_(Meta)_Pixel','Tracking'] );
+			// Register plugin options when needed
+			$this->add_action( "options_settings_page", array($this, 'admin_options_settings') );
+			// Add contextual help
+			$this->add_action( 'options_settings_help', array($this, 'admin_options_help') );
 		}
 
 
