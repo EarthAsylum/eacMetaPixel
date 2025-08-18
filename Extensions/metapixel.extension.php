@@ -542,7 +542,7 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 
 			if (empty($script_code)) return;
 
-			$javascript = "/* Facebook Meta Pixel Code */<![CDATA[
+			$javascript = "/* Facebook Meta Pixel Code */
 				!function(f,b,e,v,n,t,s)
 				{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 				n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -552,9 +552,8 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 				s.parentNode.insertBefore(t,s)}(window,document,'script',
 				'https://connect.facebook.net/en_US/fbevents.js');
 				fbq('init', '".esc_js($this->pixelId)."');\n";
-			$javascript .= "const gcv = (n,d)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+)')?.pop()||d)\n";
+			$javascript .= "const gcv = (n,d)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+)')?.pop()||d);\n";
 			$javascript .= $script_code;
-			$javascript .= "]]>\n";
 
 			$scriptId = sanitize_key( 'meta-pixel-'.$this->getVersion() );
 		//	wp_print_inline_script_tag( $this->minifyString($javascript), ['id'=>"{$scriptId}-js"] );
