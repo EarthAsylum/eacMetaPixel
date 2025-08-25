@@ -1,8 +1,8 @@
 === {eac}Doojigger MetaPixel Extension for WordPress ===
 Plugin URI:         https://eacdoojigger.earthasylum.com/eacmetapixel/
 Author:             [EarthAsylum Consulting](https://www.earthasylum.com)
-Stable tag:         2.0.0
-Last Updated:       18-Aug-2025
+Stable tag:         2.0.1
+Last Updated:       25-Aug-2025
 Requires at least:  5.8
 Tested up to:       6.8
 Requires PHP:       7.4
@@ -189,6 +189,12 @@ You should receive a copy of the GNU General Public License along with this prog
 
 
 == Changelog ==
+
+= Version 2.0.1 – Aug 25, 2025 =
+
++	Use `get_order_number` rather than `order->id` when passing order id/event id.
++	Add option to only trigger events when click id (fbclid) is present.
++	Move standard pixel script to constant.
 
 = Version 2.0.0 – Aug 18, 2025 =
 

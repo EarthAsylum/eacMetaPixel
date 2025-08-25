@@ -26,13 +26,30 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 		/**
 		 * @var string extension version
 		 */
-		const VERSION			= '25.0818.1';
+		const VERSION			= '25.0825.1';
 
 		/**
 		 * @var string extension tab name
 		 */
 		const TAB_NAME 			= 'Tracking';
 
+		/**
+		 * @var string Meta pixel JavaScript
+		 */
+		const PIXEL_SCRIPT 		= "
+/* Facebook/Meta Pixel */
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '%1\$s');
+const isfbquery = (n)=>(new URLSearchParams(window.location.search).get(n));
+const isfbcookie = (n)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+)')?.pop()||null);
+";
 		/**
 		 * @var string facebook pixel
 		 */
@@ -121,11 +138,21 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 					'FacebookPageViews'	=> array(
 							'type'		=> 	'radio',
 							'title'		=>	"Should PageView events be triggered on every page or ".
-											"only on pages that don't trigger other events.",
+											"only on pages that don't trigger other events?",
 							'label'		=> 	'Page View Option',
 							'options'	=>	[
 												['On every page'			=> 'All'],
 												['Only on non-event pages'	=> 'Only'],
+											],
+							'default'	=> 	'All',
+						),
+					'FacebookClickId'	=> array(
+							'type'		=> 	'radio',
+							'title'		=>	"Should events be triggered only when the Facebook click id (fbclid) is present?",
+							'label'		=> 	'Facebook Click ID',
+							'options'	=>	[
+												['Always trigger events'	=> 'All'],
+												['Only with click id'		=> 'Only'],
 											],
 							'default'	=> 	'All',
 						),
@@ -219,6 +246,13 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 			$this->capi_url = esc_url(
 				sprintf("https://graph.facebook.com/v23.0/%s/events?access_token=%s",$this->pixelId,$this->conversionToken)
 			);
+
+		/*
+			if ($this->is_option('FacebookClickId','only'))
+			{
+				if (! $this->get_fbc()) return $this->isEnabled(false);
+			}
+		*/
 		}
 
 
@@ -357,10 +391,10 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 						'content_type' 	=> 'product',
 						"num_items"		=> count($content),
 						'value'			=> $value,
-						'order_id'		=> $order_id,
+						'order_id'		=> $order->get_order_number(),
 					];
 
-					$script_code .= $this->fb_track($eventType, $data, $order_id);
+					$script_code .= $this->fb_track($eventType, $data, $data['order_id']);
 				}
 
 				/*
@@ -505,7 +539,7 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 							'content_type' 	=> 'product',
 						];
 						$script_code .= "document.querySelectorAll('.single_add_to_cart_button').forEach(element => {".
- 							"element.addEventListener('click',()=>{" . $this->fb_track('AddToCart',$data) . "})})\n";
+ 							"element.addEventListener('click',()=>{" . trim($this->fb_track('AddToCart',$data)) . "})});\n";
 					}
 					/* AddToCart link anywhere else */
 					$data = [
@@ -516,7 +550,7 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 					$sku = "element.getAttribute('data-product_sku')||element.getAttribute('data-product_id')";
 					$script_code .= "document.querySelectorAll('a[href*=\"?add-to-cart\"]').forEach(element => {".
  							"element.addEventListener('click',()=>{let sku = $sku;" .
- 							str_replace(["'SKU'","'ATC-SKU'"],['sku',"'ATC-'+sku"],$this->fb_track('AddToCart',$data)) . "})})\n";
+ 							str_replace(["'SKU'","'ATC-SKU'"],['sku',"'ATC-'+sku"],trim($this->fb_track('AddToCart',$data))) . "})});\n";
 				}
 
 				/*
@@ -536,27 +570,20 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 						'value'			=> $value,
 					];
 					$script_code .= "document.querySelectorAll('#billing_city').forEach(element => {".
- 							"element.addEventListener('change',()=>{" . $this->fb_track('AddPaymentInfo',$data) . "})})\n";
+ 							"element.addEventListener('change',()=>{" . trim($this->fb_track('AddPaymentInfo',$data)) . "})});\n";
 				}
 			}
 
 			if (empty($script_code)) return;
 
-			$javascript = "/* Facebook Meta Pixel Code */
-				!function(f,b,e,v,n,t,s)
-				{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-				n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-				if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-				n.queue=[];t=b.createElement(e);t.async=!0;
-				t.src=v;s=b.getElementsByTagName(e)[0];
-				s.parentNode.insertBefore(t,s)}(window,document,'script',
-				'https://connect.facebook.net/en_US/fbevents.js');
-				fbq('init', '".esc_js($this->pixelId)."');\n";
-			$javascript .= "const gcv = (n,d)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+)')?.pop()||d);\n";
-			$javascript .= $script_code;
+			$javascript   = sprintf(self::PIXEL_SCRIPT,esc_js($this->pixelId));
+
+			// since the php page could be cached, we get the value from the browse.
+			$javascript  .= ($this->is_option('FacebookClickId','only'))
+				? "if (isfbquery('fbclid') || isfbcookie('_fbc')) {\n".$script_code."}\n"
+				: $script_code;
 
 			$scriptId = sanitize_key( 'meta-pixel-'.$this->getVersion() );
-		//	wp_print_inline_script_tag( $this->minifyString($javascript), ['id'=>"{$scriptId}-js"] );
 			wp_print_inline_script_tag( $javascript, ['id'=>"{$scriptId}-js"] );
 		}
 
@@ -623,13 +650,9 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 
 			$eventID 					= "{'eventID': '{$eventID}'}";
 
-			// since the php page could be cached, we default to the _cookie value
-			// but also try to get the cookie value (gcv) from the browse.
-			$fbc = $this->get_fbc();
-			$script .= "'fbc': gcv('_fbc','{$fbc}'),";
-
-			$fbp = $this->get_fbp();
-			$script .= "'fbp': gcv('_fbp','{$fbp}'),";
+			// since the php page could be cached, we get the value from the browse.
+			$script .= "'fbc': isfbcookie('_fbc'),";
+			$script .= "'fbp': isfbcookie('_fbp'),";
 
 			$script  = "fbq('track', '{$eventType}', {".rtrim($script,',')."}, {$eventID});\n";
 
@@ -659,7 +682,12 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 		 */
 		private function fb_capi($eventType,$eventData=[],$apiData=[],$userData=[])
     	{
-			if (!$this->conversionToken) return '';
+			if (empty($this->conversionToken)) {
+				return '';
+			}
+			if ($this->is_option('FacebookClickId','only')) {
+				if (! $this->get_fbc()) return '';
+			}
 
 			$source = ($this->plugin->doing_ajax()) ? $_SERVER['HTTP_REFERER'] : $this->plugin->currentURL();
 			$source = explode('?',$source);
