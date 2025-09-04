@@ -26,7 +26,7 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 		/**
 		 * @var string extension version
 		 */
-		const VERSION			= '25.0825.1';
+		const VERSION			= '25.0904.1';
 
 		/**
 		 * @var string extension tab name
@@ -290,7 +290,7 @@ const isfbcookie = (n)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+
 			 *
 			 * @param string $eventType
 			 * @param array $eventData
-			 * @param string $$eventID
+			 * @param null|string|bool optional $eventID or false
 			 * @return string script code
 			 */
 			$this->add_filter('meta_pixel_event_code', 	array($this, 'fb_track'), 10, 3);
@@ -301,7 +301,7 @@ const isfbcookie = (n)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+
 			 *
 			 * @param string $eventType
 			 * @param array $eventData
-			 * @param string $$eventID
+			 * @param null|string|bool optional $eventID or false
 			 * @return array $eventData
 			 */
 			$this->add_action('meta_pixel_add_event', 	array($this, 'addCustomEvent'), 10, 3);
@@ -342,7 +342,7 @@ const isfbcookie = (n)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+
 		 *
 		 * @param string $eventType fb track event name
 		 * @param array $eventData data passed
-		 * @param string $$eventID optional 4th arg to fbq
+		 * @param null|string|bool optional $eventID or false
 		 * @return	void|string
 		 */
     	public function addCustomEvent($eventType=null, $eventData=[], $eventID=null)
@@ -449,7 +449,7 @@ const isfbcookie = (n)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+
 						'content_ids' 	=> [ $product->get_sku() ],
 						'content_type' 	=> 'product',
 					];
-					$script_code .= $this->fb_track('ViewContent',$data);
+					$script_code .= $this->fb_track('ViewContent',$data,false);
 				}
 
 				/*
@@ -468,7 +468,7 @@ const isfbcookie = (n)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+
 							'content_ids' 	=> $slug,
 							'content_type' 	=> 'product_group',
 						];
-						$script_code .= $this->fb_track('ViewContent',$data);
+						$script_code .= $this->fb_track('ViewContent',$data,false);
 					}
 				}
 			}
@@ -500,7 +500,7 @@ const isfbcookie = (n)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+
 						$data = [
 							'content_name'	=> $content,
 						];
-						$script_code .= $this->fb_track('ViewContent',$data);
+						$script_code .= $this->fb_track('ViewContent',$data,false);
 					}
 				}
 			}
@@ -515,7 +515,7 @@ const isfbcookie = (n)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+
 			*/
 			if ( $this->is_option('FacebookOptions','PageView') && ($this->is_option('FacebookPageViews','All') || empty($script_code)) )
 			{
-				$script_code = $this->fb_track('PageView') . $script_code;
+				$script_code = $this->fb_track('PageView',[],false) . $script_code;
 			}
 
 			/*
@@ -593,7 +593,7 @@ const isfbcookie = (n)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+
 		 *
 		 * @param string $eventType fb track event name
 		 * @param array $eventData data passed
-		 * @param string $$eventID optional 4th arg to fbq
+		 * @param null|string|bool optional $eventID or false
 		 * @return 	string script output
 		 */
 		private function fb_track($eventType, $eventData=[], $eventID=null)
@@ -618,18 +618,18 @@ const isfbcookie = (n)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+
 				$script .= "'{$name}': {$value},";
 			}
 
-			if (is_null($eventID)) $eventID = uniqid();
+			if (is_null($eventID) || $eventID === true) $eventID = uniqid();
 
 			/**
 			 * filter {pluginName}_meta_pixel_eventid -
 			 * modify the event ID sent with the pixel and capi.
 			 *
-			 * @param string $eventID
+			 * @param null|string|bool $eventID
 			 * @param array $eventData
 			 * @param string $eventType
-			 * @return string $eventID
+			 * @return null|string|bool $eventID
 			 */
-			$eventID = $this->apply_filters('meta_pixel_eventid', (string)$eventID, $eventData, $eventType);
+			$eventID = $this->apply_filters('meta_pixel_eventid', $eventID, $eventData, $eventType);
 
 			$capi = '';
 			switch ($eventType) {
@@ -648,13 +648,13 @@ const isfbcookie = (n)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+
 					}
 			}
 
-			$eventID 					= "{'eventID': '{$eventID}'}";
+			$eventID = ($eventID) ? ",{'eventID': '{$eventID}'}" : '';
 
-			// since the php page could be cached, we get the value from the browse.
+			// since the php page could be cached, we get the value from the browser.
 			$script .= "'fbc': isfbcookie('_fbc'),";
 			$script .= "'fbp': isfbcookie('_fbp'),";
 
-			$script  = "fbq('track', '{$eventType}', {".rtrim($script,',')."}, {$eventID});\n";
+			$script  = "fbq('track', '{$eventType}', {".rtrim($script,',')."}{$eventID});\n";
 
 			/**
 			 * filter {pluginName}_meta_pixel_console -
@@ -727,7 +727,9 @@ const isfbcookie = (n)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+
 			 * @param string $eventType
 			 * @return array $userData
 			 */
-			$userData = $this->apply_filters('meta_pixel_userdata', $userData, $eventData, $eventType);
+			$userData = array_filter(
+				$this->apply_filters('meta_pixel_userdata', $userData, $eventData, $eventType)
+			);
 
 			$apiData = (object) array(
 				"data" => array(

@@ -1,8 +1,8 @@
 === {eac}Doojigger MetaPixel Extension for WordPress ===
 Plugin URI:         https://eacdoojigger.earthasylum.com/eacmetapixel/
 Author:             [EarthAsylum Consulting](https://www.earthasylum.com)
-Stable tag:         2.0.1
-Last Updated:       25-Aug-2025
+Stable tag:         2.0.2
+Last Updated:       04-Sep-2025
 Requires at least:  5.8
 Tested up to:       6.8
 Requires PHP:       7.4
@@ -189,6 +189,11 @@ You should receive a copy of the GNU General Public License along with this prog
 
 
 == Changelog ==
+
+= Version 2.0.2 – Sep 4, 2025 =
+
++	Don't pass eventID on typically cached page events (PageView and select ViewContent events).
++	Allow disabling eventID (false) on custom events.
 
 = Version 2.0.1 – Aug 25, 2025 =
 
