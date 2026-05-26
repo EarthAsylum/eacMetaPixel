@@ -7,15 +7,15 @@ namespace EarthAsylumConsulting;
  * @category	WordPress Plugin
  * @package 	{eac}MetaPixel\{eac}Doojigger Extensions
  * @author		Kevin Burkholder <KBurkholder@EarthAsylum.com>
- * @copyright	Copyright (c) 2025 EarthAsylum Consulting <www.earthasylum.com>
+ * @copyright	Copyright (c) 2026 EarthAsylum Consulting <www.earthasylum.com>
  * @link		https://eacDoojigger.earthasylum.com/
  *
  * @wordpress-plugin
  * Plugin Name:			{eac}MetaPixel
  * Description:			{eac}MetaPixel installs the Facebook/Meta Pixel to enable tracking of PageView, ViewContent, AddToCart, InitiateCheckout and Purchase events.
- * Version:				2.0.2
+ * Version:				2.0.3
  * Requires at least:	5.8
- * Tested up to:		6.8
+ * Tested up to:		7.0
  * Requires PHP:		7.4
  * Plugin URI:          https://eacdoojigger.earthasylum.com/eacmetapixel/
  * Author:				EarthAsylum Consulting

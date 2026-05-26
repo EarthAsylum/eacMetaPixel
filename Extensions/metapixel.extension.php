@@ -9,7 +9,7 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
  	* @category		WordPress Plugin
  	* @package		{eac}Doojigger\Extensions
  	* @author		Kevin Burkholder <KBurkholder@EarthAsylum.com>
- 	* @copyright	Copyright (c) 2025 EarthAsylum Consulting <www.EarthAsylum.com>
+ 	* @copyright	Copyright (c) 2026 EarthAsylum Consulting <www.EarthAsylum.com>
  	* @link			https://eacDoojigger.earthasylum.com/
  	*/
 
@@ -26,7 +26,7 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 		/**
 		 * @var string extension version
 		 */
-		const VERSION			= '25.0904.1';
+		const VERSION			= '26.0526.1';
 
 		/**
 		 * @var string extension tab name
@@ -244,7 +244,7 @@ const isfbcookie = (n)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+
 			$this->testEvent = trim($fb);
 
 			$this->capi_url = esc_url(
-				sprintf("https://graph.facebook.com/v23.0/%s/events?access_token=%s",$this->pixelId,$this->conversionToken)
+				sprintf("https://graph.facebook.com/v25.0/%s/events?access_token=%s",$this->pixelId,$this->conversionToken)
 			);
 
 		/*

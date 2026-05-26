@@ -1,10 +1,10 @@
 === {eac}Doojigger MetaPixel Extension for WordPress ===
 Plugin URI:         https://eacdoojigger.earthasylum.com/eacmetapixel/
 Author:             [EarthAsylum Consulting](https://www.earthasylum.com)
-Stable tag:         2.0.2
-Last Updated:       04-Sep-2025
+Stable tag:         2.0.3
+Last Updated:       26-May-2026
 Requires at least:  5.8
-Tested up to:       6.8
+Tested up to:       7.0
 Requires PHP:       7.4
 Requires EAC:       3.0
 Contributors:       kevinburkholder
@@ -179,7 +179,7 @@ See: [Specifications for Facebook Pixel Standard Events](https://business.facebo
 
 == Copyright ==
 
-= Copyright © 2019-2025, EarthAsylum Consulting, distributed under the terms of the GNU GPL. =
+= Copyright © 2026, EarthAsylum Consulting, distributed under the terms of the GNU GPL. =
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
@@ -189,6 +189,11 @@ You should receive a copy of the GNU General Public License along with this prog
 
 
 == Changelog ==
+
+= Version 2.0.3 – May 26, 2026 =
+
++   Compatible with WordPress 7.0.
++	Updated to Facebook Graph API Version 25.0.
 
 = Version 2.0.2 – Sep 4, 2025 =
 
