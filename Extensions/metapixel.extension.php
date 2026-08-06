@@ -26,7 +26,7 @@ if (! class_exists(__NAMESPACE__.'\metapixel_extension', false) )
 		/**
 		 * @var string extension version
 		 */
-		const VERSION			= '26.0526.1';
+		const VERSION			= '26.0804.1';
 
 		/**
 		 * @var string extension tab name
@@ -116,6 +116,14 @@ const isfbcookie = (n)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+
 							'label'		=> 	'Facebook Pixel ID',
 							'info'		=> 	'Go to <a href="https://business.facebook.com/events_manager2" target="_blank">Events Manager</a> '.
 											'&rarr; Data Sources &rarr; Your Pixel &rarr; Settings &rarr; Pixel ID.',
+						),
+					'facebook_consent_load'	=> 	array(
+							'type'			=> 	'switch',
+							'label'			=> 	'Consent To Load',
+							'options' 		=> 	['Enabled'],
+					//		'default'		=>	'Enabled',
+							'title'			=>	"Require user consent before loading the Meta tags and events.",
+							'help'			=> "[title] When enabled, the visitor must provide consent via a Consent Management Platform (CMP) before the Facebook tag can be loaded.",
 						),
 					'FacebookOptions'	=> array(
 							'type'		=> 	'checkbox',
@@ -269,6 +277,12 @@ const isfbcookie = (n)=>(document.cookie.match('(^|;)\\\s*'+n+'\\\s*=\\\s*([^;]+
 				add_action("wp_head",					function() {
 					if (is_front_page()) echo "<meta name=\"facebook-domain-verification\" content=\"".esc_attr($this->metaTag)."\" />\n";
 				});
+			}
+
+			/* check for consent */
+			if ($this->is_option('facebook_consent_load'))
+			{
+				if (! $this->plugin->has_cookie_consent('marketing')) return;
 			}
 
 			/* add meta pixel js, maybe trigger CAPI */

@@ -1,11 +1,11 @@
 === {eac}Doojigger MetaPixel Extension for WordPress ===
 Plugin URI:         https://eacdoojigger.earthasylum.com/eacmetapixel/
 Author:             [EarthAsylum Consulting](https://www.earthasylum.com)
-Stable tag:         2.0.3
-Last Updated:       26-May-2026
+Stable tag:         2.0.4
+Last Updated:       04-Aug-2026
 Requires at least:  5.8
 Tested up to:       7.0
-Requires PHP:       7.4
+Requires PHP:       8.1
 Requires EAC:       3.0
 Contributors:       kevinburkholder
 Donate link:        https://github.com/sponsors/EarthAsylum
@@ -189,6 +189,10 @@ You should receive a copy of the GNU General Public License along with this prog
 
 
 == Changelog ==
+
+= Version 2.0.4 – August 4, 2026 =
+
++	Supports WP Consent API using {eac}Doojigger `has_cookie_consent('marketing')`.
 
 = Version 2.0.3 – May 26, 2026 =
 
