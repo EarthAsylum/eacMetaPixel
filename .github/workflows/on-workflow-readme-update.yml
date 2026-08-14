@@ -1,12 +1,10 @@
-# GitHub workflow action when publishing a new release:
-#   Deploy plugin to wordpress.org repository.
-#   Adds {plugin-name}.{version}.zip to release assets.
+# GitHub workflow action on workflow_dispatch (manual run):
+#   In WordPress repository, update readme.txt and/or assets content.
 #
 # Define SVN_USERNAME, SVN_PASSWORD for wordpress.org credentials
 # Organization or Repository : Settings -> Secrets and Variables -> Actions
 #
 # wordpress.org plugin slug is the repository name (lower case).
-# Expects tag name to be version (M.m.p) with or without preceding "v" (v1.2.3 or 1.2.3)
 # Expects wordpress.org assets (screenshots, icons, banners) to be in /.wp-assets.
 #
 # See: https://github.com/10up/action-wordpress-plugin-asset-update/
@@ -17,30 +15,24 @@ name: Plugin asset/readme update
 on:
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 env:
   REPO_NAME: ${{ github.event.repository.name }}
-  TAG_NAME:  ${{ github.ref_name }}
 
 jobs:
   trunk:
-    name: Push to trunk
     runs-on: ubuntu-latest
     steps:
 
     - name: Plugin-Slug
-      # SLUG is the lower-case plugin slug/folder name. Get VERSION, sans 'v', from TAG_NAME
+      # SLUG is the lower-case plugin slug/folder name.
       run: |
         echo "SLUG=${REPO_NAME,,}" >>${GITHUB_ENV}
-        echo "VERSION=${TAG_NAME#v}" >>${GITHUB_ENV}
 
     - name: Checkout-Code
       # checkout the repository code
       uses: actions/checkout@v7
 
-    - name: Plugin-asset-readme-Update
+    - name: Plugin-Update
       uses: 10up/action-wordpress-plugin-asset-update@stable
       env:
         ASSETS_DIR: .wp-assets
