@@ -9,10 +9,11 @@
 #
 # See: https://github.com/10up/action-wordpress-plugin-asset-update/
 #
-# Version: 26.0813.1
+# Version: 26.0814.1
 
 name: Plugin asset/readme update
 on:
+  # Manually run from GitHub Actions UI
   workflow_dispatch:
 
 env:
@@ -24,15 +25,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+    # Get plugin SLUG (lower-case) from REPO_NAME
     - name: Plugin-Slug
-      # SLUG is the lower-case plugin slug/folder name.
       run: |
         echo "SLUG=${REPO_NAME,,}" >>${GITHUB_ENV}
 
+    # Checkout the repository code
     - name: Checkout-Code
-      # checkout the repository code
       uses: actions/checkout@v7
 
+    # Update readme.txt & assets to trunk and stable-tag in WordPress SVN
     - name: Plugin-Update
       uses: 10up/action-wordpress-plugin-asset-update@stable
       env:
