@@ -15,7 +15,7 @@
 #
 # Version: 26.0814.1
 
-name: Deploy to WordPress.org SVN
+name: On Release, deploy to WordPress SVN
 on:
   # When a release is published
   release:
@@ -30,7 +30,7 @@ env:
 
 jobs:
   deploy:
-    name: Push to WP SVN on release
+    name: Deploy to WordPress SVN
     runs-on: ubuntu-latest
     steps:
 

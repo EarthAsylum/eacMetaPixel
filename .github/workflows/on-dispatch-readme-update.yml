@@ -11,7 +11,7 @@
 #
 # Version: 26.0814.1
 
-name: Plugin asset/readme update
+name: On Dispatch, update plugin readme & assets
 on:
   # Manually run from GitHub Actions UI
   workflow_dispatch:
@@ -21,7 +21,7 @@ env:
 
 jobs:
   update:
-    name: Push to WP SVN on update
+    name: Update plugin readme/assets
     runs-on: ubuntu-latest
     steps:
 
