@@ -32,6 +32,7 @@ env:
 
 jobs:
   Deploy-Plugin:
+    name: Deploy plugin on release
     runs-on: ubuntu-latest
 
     steps:
