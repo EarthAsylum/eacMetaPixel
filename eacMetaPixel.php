@@ -15,7 +15,7 @@ namespace EarthAsylumConsulting;
  * Description:			{eac}MetaPixel installs the Facebook/Meta Pixel to enable tracking of PageView, ViewContent, AddToCart, InitiateCheckout and Purchase events.
  * Version:				2.0.4
  * Requires at least:	5.8
- * Tested up to:		7.0
+ * Tested up to:		7.1
  * Requires PHP:		8.1
  * Plugin URI:          https://eacdoojigger.earthasylum.com/eacmetapixel/
  * Author:				EarthAsylum Consulting
