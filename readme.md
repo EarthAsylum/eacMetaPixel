@@ -8,8 +8,8 @@
 
 Plugin URI:         https://eacdoojigger.earthasylum.com/eacmetapixel/  
 Author:             [EarthAsylum Consulting](https://www.earthasylum.com)  
-Stable tag:         2.0.4  
-Last Updated:       04-Aug-2026  
+Stable tag:         2.0.5  
+Last Updated:       09-Sep-2026  
 Requires at least:  5.8  
 Tested up to:       7.1  
 Requires PHP:       8.1  

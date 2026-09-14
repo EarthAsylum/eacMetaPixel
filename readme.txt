@@ -1,8 +1,8 @@
 === {eac}Doojigger MetaPixel Extension for WordPress ===
 Plugin URI:         https://eacdoojigger.earthasylum.com/eacmetapixel/
 Author:             [EarthAsylum Consulting](https://www.earthasylum.com)
-Stable tag:         2.0.4
-Last Updated:       04-Aug-2026
+Stable tag:         2.0.5
+Last Updated:       09-Sep-2026
 Requires at least:  5.8
 Tested up to:       7.1
 Requires PHP:       8.1
@@ -189,6 +189,14 @@ You should receive a copy of the GNU General Public License along with this prog
 
 
 == Changelog ==
+
+= Version 2.0.5 – September 8, 2026 =
+
++	Compatible with WordPress 7.1.
++	Admin notification on missing required plugin.
++	Aesthetic/Nonstructural changes...
+	+	WP plugins page links.
+	+	Plugin DocBlocks, readme headers, etc.
 
 = Version 2.0.4 – August 4, 2026 =
 
